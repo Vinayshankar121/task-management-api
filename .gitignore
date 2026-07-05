@@ -1,5 +1,7 @@
 HELP.md
 target/
+.idea/
+.vscode/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -14,7 +16,6 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
 *.iws
 *.iml
 *.ipr
@@ -30,4 +31,3 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
