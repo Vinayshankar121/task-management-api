@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: taskmanagement
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+server:
+  port: 9999
+
+    
