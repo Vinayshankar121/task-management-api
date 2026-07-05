@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,6 +35,15 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Map<String, Object>> handleUnreadable(HttpMessageNotReadableException exception) {
 		String message = exception.getMostSpecificCause() != null ? exception.getMostSpecificCause().getMessage() : exception.getMessage();
+		if (message != null && message.contains("TaskStatus")) {
+			message = "Invalid status value. Use pending, in_progress, or completed.";
+		}
+		return buildErrorResponse(HttpStatus.BAD_REQUEST, message);
+	}
+
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<Map<String, Object>> handleTypeMismatch(MethodArgumentTypeMismatchException exception) {
+		String message = "Invalid value for parameter '" + exception.getName() + "'";
 		return buildErrorResponse(HttpStatus.BAD_REQUEST, message);
 	}
 
